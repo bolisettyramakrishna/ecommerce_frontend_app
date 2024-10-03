@@ -18,6 +18,8 @@ export class ProductService {
                           .pipe(map(response=> response._embedded.products));
   }
 
+  
+
   getProducts(): Observable<Product[]>{
 
     return this.httpClient.get<GetResponse>(this.apiUrl)
