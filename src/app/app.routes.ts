@@ -3,6 +3,7 @@ import { ProductListComponent } from './product-list/product-list.component';
 import { ProductCategoryComponent } from './product-category/product-category.component';
 
 export const routes: Routes = [
+    { path: 'search/:keyword', component: ProductListComponent },
 
     {path: 'category/:id', component: ProductListComponent},
     {path: 'category', component: ProductListComponent},

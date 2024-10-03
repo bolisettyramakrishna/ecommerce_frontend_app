@@ -20,7 +20,19 @@ export class ProductService {
 
   
 
-  getProducts(): Observable<Product[]>{
+  
+searchProducts(theKeyword:string) :Observable<Product[]>{
+  const searchUrl = `${this.apiUrl}/search/findByProductNameContaining?name=${theKeyword}`;
+    return this.httpClient.get<GetResponse>(searchUrl)
+                          .pipe(map(response=> response._embedded.products));
+
+
+ 
+
+
+}
+
+  private getProducts(): Observable<Product[]>{
 
     return this.httpClient.get<GetResponse>(this.apiUrl)
                    .pipe(map(response=> response._embedded.products));
