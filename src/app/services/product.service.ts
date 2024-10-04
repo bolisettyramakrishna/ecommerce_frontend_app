@@ -22,7 +22,7 @@ export class ProductService {
 
   
 searchProducts(theKeyword:string) :Observable<Product[]>{
-  const searchUrl = `${this.apiUrl}/search/findByProductNameContaining?name=${theKeyword}`;
+  const searchUrl = `${this.apiUrl}/search/findByNameContaining?name=${theKeyword}`;
     return this.httpClient.get<GetResponse>(searchUrl)
                           .pipe(map(response=> response._embedded.products));
 

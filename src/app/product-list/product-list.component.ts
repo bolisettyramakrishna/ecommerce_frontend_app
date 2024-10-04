@@ -29,26 +29,24 @@ export class ProductListComponent implements OnInit {
   }
 
   listProducts() {
-    this.searchMode=this.route.snapshot.paramMap.has('keyword');
-    if(this.searchMode){
+    this.searchMode = this.route.snapshot.paramMap.has('keyword');
+    if (this.searchMode) {
       this.handleSearchProducts();
-
-
     }
-    else{
+    else {
       this.handleListProducts();
     }
   }
 
-  handleSearchProducts(){
-    const theKeyword:string=this.route.snapshot.paramMap.get('keyword')!;
-    this.productService.searchProducts(theKeyword).subscribe(data=>{
-      this.products=data;
+  handleSearchProducts() {
+    const theKeyword: string = this.route.snapshot.paramMap.get('keyword')!;
+    this.productService.searchProducts(theKeyword).subscribe(data => {
+      this.products = data;
     })
 
   }
 
-  handleListProducts(){
+  handleListProducts() {
     const hasCategoryId: boolean = this.route.snapshot.paramMap.has('id');
     if (hasCategoryId) {
       // get category id and convert it into num type
