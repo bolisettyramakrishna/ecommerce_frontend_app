@@ -1,0 +1,32 @@
+html,
+body {
+  height: 100%;
+}
+
+.page-wrapper {
+  display: flex;
+  flex-direction: column;
+  min-height: 100vh; /* Full screen height */
+}
+
+.page-container {
+  flex-grow: 1; /* This will make the content area grow and push the footer down */
+}
+
+footer {
+  background-color: #f8f9fa;
+  padding: 15px;
+  position: relative;
+  bottom: 0;
+  width: 100%;
+}
+
+footer ul {
+  padding: 0;
+  list-style: none;
+}
+
+footer ul li {
+  display: inline;
+  margin-right: 15px;
+}
