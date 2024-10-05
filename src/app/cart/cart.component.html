@@ -1,0 +1,60 @@
+<h1>Your cart Details!</h1>
+<table class="table table-active">
+  <thead>
+    <tr>
+      <th>Product Image</th>
+      <th>Product Details</th>
+      <th>Quantity</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr *ngFor="let item of cartItems">
+      <td>
+        <img
+          [src]="item.imageUrl"
+          alt="{{ item.name }}"
+          class="img-fluid"
+          style="max-width: 100px; height: auto"
+        />
+      </td>
+      <td>
+        <h3>{{ item.name }}</h3>
+        <div>Price: {{ item.unitPrice | currency }}</div>
+      </td>
+      <td>
+        <div class="d-flex align-items-center">
+          <button
+            class="btn btn-secondary btn-sm me-2"
+            (click)="updateQuantity(item.id, item.quantity - 1)"
+            [disabled]="item.quantity <= 1"
+          >
+            -
+          </button>
+          <span class="mx-2">{{ item.quantity }}</span>
+          <button
+            class="btn btn-secondary btn-sm me-2"
+            (click)="updateQuantity(item.id, item.quantity + 1)"
+          >
+            +
+          </button>
+          <button class="btn btn-danger btn-sm" (click)="removeItem(item)">
+            Remove
+          </button>
+        </div>
+      </td>
+    </tr>
+    <tr>
+      <td colspan="1"></td>
+      <td>
+        <strong>Cart Summary</strong>
+      </td>
+      <td>
+        <strong>Total Quantity: {{ getTotalQuantity() }}</strong
+        ><br />
+        <strong>Total Price: {{ totalPrice | currency }}</strong
+        ><br />
+        <button class="btn btn-success">Proceed to Checkout</button>
+      </td>
+    </tr>
+  </tbody>
+</table>
