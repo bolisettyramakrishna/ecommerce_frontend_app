@@ -1,0 +1,154 @@
+/* Checkout Component Styles */
+body {
+    background-color: #f5f5f5; /* Light ash background for the entire body */
+}
+
+.form-area {
+    background: #e5e5e5; /* Light ash background for the form area */
+    position: relative; /* Positioning context for absolute children */
+    margin-bottom: 45px; /* Space below each form area */
+    padding: 50px 20px; /* Padding inside the form */
+    border: 3px solid #ccc; /* Border for the form area */
+    border-radius: 10px; /* Rounded corners */
+}
+
+.form-area h3 {
+    position: absolute; /* Absolute positioning for header */
+    top: -26px; /* Position above the form area */
+    left: 13px; /* Positioning from the left */
+    background: #e5e5e5; /* Match background color */
+    padding: 10px 20px; /* Padding around the header */
+    font-weight: 500; /* Medium font weight */
+    z-index: 23; /* Bring to front */
+    display: inline-block; /* Make it inline for a cleaner look */
+}
+
+.input-space {
+    margin-bottom: 20px; /* Space between input fields */
+}
+
+.payment-success {
+    margin-top: 100px; /* Add margin to keep the message lower on the page */
+    padding: 20px;
+    background-color: #dff0d8; /* Light green background for success */
+    border: 1px solid #d0e9c6;
+    border-radius: 5px;
+    text-align: center;
+  }
+
+.input-space label {
+    padding-left: 31px; /* Padding for labels */
+    font-size: 14px; /* Font size for labels */
+    margin-bottom: 5px; /* Space below labels */
+    display: block; /* Make labels block elements */
+}
+
+.input-space input[type="text"],
+.input-space input[type="email"],
+.input-space input[type="number"],
+.input-space select {
+    width: 100%; /* Full width for inputs and selects */
+    height: 40px; /* Fixed height for uniformity */
+    border-radius: 30px; /* Rounded corners */
+    outline: 0; /* Remove outline */
+    padding: 10px; /* Padding inside inputs */
+    border: 1px solid #ccc; /* Light border */
+    background-color: #d0e8ff; /* Light blue background for fields */
+    transition: border-color 0.3s; /* Smooth border color transition */
+}
+
+.input-space input[type="text"]:focus,
+.input-space input[type="email"]:focus,
+.input-space input[type="number"]:focus,
+.input-space select:focus {
+    border-color: #0da8e4; /* Change border color on focus */
+}
+
+.btn {
+    width: 100%; /* Full-width buttons */
+    padding: 10px; /* Padding inside buttons */
+    border-radius: 30px; /* Rounded corners for buttons */
+    border: none; /* Remove default border */
+    cursor: pointer; /* Pointer cursor on hover */
+}
+
+.btn-success {
+    background-color: #28a745; /* Green button color */
+    color: white; /* White text */
+}
+
+.btn-success:hover {
+    background-color: #218838; /* Darker green on hover */
+}
+
+.alert {
+    margin-top: 5px; /* Space above alert messages */
+    font-size: 0.9rem; /* Slightly smaller font for error messages */
+}
+
+/* Container for each section */
+.card {
+    background-color: #e5e5e5; /* Light ash background for cards */
+    border: none; /* No border for cards */
+    border-radius: 10px; /* Rounded corners for cards */
+    padding: 20px; /* Padding inside the card */
+}
+
+/* Checkbox styles */
+.au-checkbox {
+    display: block; /* Block-level checkbox */
+    position: relative; /* Positioning context */
+    cursor: pointer; /* Pointer cursor */
+    font-size: 22px; /* Font size for checkbox label */
+    user-select: none; /* Prevent text selection */
+}
+
+.au-checkbox input {
+    position: absolute; /* Hide original checkbox */
+    opacity: 0; /* Make invisible */
+    cursor: pointer; /* Pointer cursor */
+}
+
+.au-checkmark {
+    position: absolute; /* Positioning for checkmark */
+    top: 0;
+    left: 0;
+    height: 22px; /* Height of checkmark */
+    width: 22px; /* Width of checkmark */
+    background-color: #fff !important; /* White background */
+    border: 2px solid #e5e5e5; /* Light border */
+    border-radius: 2px; /* Rounded corners */
+}
+
+.au-checkbox:hover input ~ .au-checkmark {
+    background-color: transparent; /* Transparent on hover */
+}
+
+.au-checkbox input:checked ~ .au-checkmark {
+    background-color: #fff; /* White when checked */
+}
+
+.au-checkmark:after {
+    content: ""; /* Add content for checkmark */
+    position: absolute; /* Positioning for checkmark */
+    display: none; /* Hide by default */
+}
+
+.au-checkbox input:checked ~ .au-checkmark:after {
+    display: block; /* Show when checked */
+}
+
+.au-checkbox .au-checkmark:after {
+    left: 5px; /* Position checkmark */
+    top: -1px;
+    width: 9px; /* Width of checkmark */
+    height: 15px; /* Height of checkmark */
+    border: solid #0da8e4; /* Checkmark color */
+    border-width: 0 4px 4px 0; /* Adjust border for checkmark */
+    border-radius: 2px; /* Rounded corners */
+    transform: rotate(45deg); /* Rotate to create a check */
+}
+
+select {
+    color: #828482; /* Text color for select */
+}

@@ -5,6 +5,8 @@ import { CommonModule } from '@angular/common';
 import { ProductCategoryComponent } from './product-category/product-category.component';
 import { SearchComponent } from './search/search.component';
 import { CartService } from './services/cart.service';
+import { CheckoutComponent } from './checkout/checkout.component';
+import { FormsModule } from '@angular/forms';
 
 @Component({
   selector: 'app-root',
@@ -16,6 +18,7 @@ import { CartService } from './services/cart.service';
     CommonModule,
     ProductCategoryComponent,
     SearchComponent,
+    CheckoutComponent
   ],
   templateUrl: './app.component.html',
   styleUrl: './app.component.css',

@@ -1,29 +1,30 @@
 import { Component, OnInit } from '@angular/core';
 import { CartService } from '../services/cart.service';
 import { CommonModule } from '@angular/common';
+import { Router } from '@angular/router';
+import { RouterModule } from '@angular/router';
 
 @Component({
   selector: 'app-cart',
   standalone: true,
-  imports: [CommonModule],
+  imports: [CommonModule, RouterModule],
   templateUrl: './cart.component.html',
-  styleUrl: './cart.component.css',
+  styleUrls: ['./cart.component.css'], // Fixed the typo from styleUrl to styleUrls
 })
 export class CartComponent implements OnInit {
   cartItems: any[] = [];
   totalPrice = 0;
 
-  constructor(private cartService: CartService) {}
+  constructor(private cartService: CartService, private router: Router) {}
 
   ngOnInit(): void {
     console.log('CartComponent loaded');
-    this.cartItems = this.cartService.getCartItems();
-    this.totalPrice = this.cartService.getTotalPrice();
+    this.loadCartDetails();
   }
 
   updateQuantity(id: number, quantity: number) {
     this.cartService.updateItemQuantity(id, quantity);
-    this.loadCartDetails(); // Refresh cart items and total price after removing
+    this.loadCartDetails(); // Refresh cart items and total price after quantity update
   }
 
   removeItem(item: any) {

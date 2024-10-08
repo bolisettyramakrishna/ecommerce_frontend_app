@@ -1,4 +1,4 @@
-<h1>Your cart Details!</h1>
+<h1>Your Cart Details!</h1>
 <table class="table table-active">
   <thead>
     <tr>
@@ -49,11 +49,10 @@
         <strong>Cart Summary</strong>
       </td>
       <td>
-        <strong>Total Quantity: {{ getTotalQuantity() }}</strong
-        ><br />
-        <strong>Total Price: {{ totalPrice | currency }}</strong
-        ><br />
-        <button class="btn btn-success">Proceed to Checkout</button>
+        <strong>Total Quantity: {{ getTotalQuantity() }}</strong><br />
+        <strong>Total Price: {{ totalPrice | currency }}</strong><br />
+        <a routerLink="/checkout" class="btn btn-primary">Proceed to Checkout</a>
+        <router-outlet></router-outlet>
       </td>
     </tr>
   </tbody>
