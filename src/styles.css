@@ -632,7 +632,7 @@ input.au-input.au-input-xl {
 }
 
 .input-space input[type=text] {
-    width: 300%;
+    width: 100%;
     height: 40px;
     border-radius: 30px;
     outline: 0;
@@ -640,16 +640,8 @@ input.au-input.au-input-xl {
     border: 1px solid #ccc
 }
 
-.input-space input[type=password]{
-    width:300%;
-    height:40px;
-    border-radius:30px;
-    outline:0;
-    padding:10px;
-    border:1px solid #ccc
-}
 .input-space select {
-    width: 300%;
+    width: 100%;
     height: 40px;
     border-radius: 30px;
     outline: 0;

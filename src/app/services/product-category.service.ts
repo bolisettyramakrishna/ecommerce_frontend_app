@@ -15,13 +15,13 @@ export class ProductCategoryService {
 
   getProductCategories(): Observable<ProductCategory[]> {
     return this.httpClient.get<GetResponseProductCategory>(this.apiUrl)
-      .pipe(map(response => response._embedded.categories));
+      .pipe(map(response => response._embedded.productCategories));
   }
 }
 
 // Interface for mapping the response
 interface GetResponseProductCategory {
   _embedded: {
-    categories: ProductCategory[];
+    productCategories: ProductCategory[];
   };
 }

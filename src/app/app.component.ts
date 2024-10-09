@@ -5,7 +5,6 @@ import { CommonModule } from '@angular/common';
 import { ProductCategoryComponent } from './product-category/product-category.component';
 import { SearchComponent } from './search/search.component';
 import { CartService } from './services/cart.service';
-import { LoginComponent } from './login/login.component';
 
 @Component({
   selector: 'app-root',
@@ -17,7 +16,6 @@ import { LoginComponent } from './login/login.component';
     CommonModule,
     ProductCategoryComponent,
     SearchComponent,
-    LoginComponent
   ],
   templateUrl: './app.component.html',
   styleUrl: './app.component.css',
