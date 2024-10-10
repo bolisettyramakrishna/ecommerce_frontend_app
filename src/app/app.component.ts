@@ -6,7 +6,8 @@ import { ProductCategoryComponent } from './product-category/product-category.co
 import { SearchComponent } from './search/search.component';
 import { CartService } from './services/cart.service';
 import { CheckoutComponent } from './checkout/checkout.component';
-import { FormsModule } from '@angular/forms';
+import { LoginComponent } from './login/login.component';
+import { RegisterbtnComponent } from './registerbtn/registerbtn.component';
 
 @Component({
   selector: 'app-root',
@@ -18,7 +19,9 @@ import { FormsModule } from '@angular/forms';
     CommonModule,
     ProductCategoryComponent,
     SearchComponent,
-    CheckoutComponent
+    CheckoutComponent,
+    LoginComponent,
+    RegisterbtnComponent
   ],
   templateUrl: './app.component.html',
   styleUrl: './app.component.css',

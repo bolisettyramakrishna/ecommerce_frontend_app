@@ -1,0 +1,47 @@
+<div class="main-content page-m">
+    <div class="section-content section-content-p30">
+        <div class="container-fluid">
+            <h2>Registration Page</h2>
+            <form [formGroup]="registerFormGroup" (ngSubmit)="onSubmit()">
+                <!--Forgot password page-->
+                <div formGroupName="register" class="form-area" >
+                    <div class="row">
+                        <div class="col-md-2"><label>Name:</label></div>
+                        <div class="col-md-2">
+                            <div class="input-space">
+                                <input formControlName="name" type="text">
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-md-2"><label>Password:</label></div>
+                        <div class="col-md-2">
+                            <div class="input-space">
+                                <input formControlName="password" type="password">
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-md-2"><label>Email:</label></div>
+                        <div class="col-md-2">
+                            <div class="input-space">
+                                <input formControlName="email" type="text">
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-md-2"><label>Phone No:</label></div>
+                        <div class="col-md-2">
+                            <div class="input-space">
+                                <input formControlName="phoneNo" type="text">
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="text-center">
+                    <button type="submit" class="btn btn-info">Register</button>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
