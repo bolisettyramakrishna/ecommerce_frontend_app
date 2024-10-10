@@ -82,7 +82,7 @@ export class CheckoutComponent implements OnInit {
         
         const razorpayOrderId = response.razorpayOrderId; 
         const amount = this.totalPrice; 
-        this.orderTrackingId = response.orderTrackingId;
+        this.orderTrackingId = response.orderTrackingNumber;
        // alert(`Order placed successfully with order Tracking ID : ${this.orderTrackingId}` );
         this.initiateRazorpayPayment(razorpayOrderId, amount);
       },
