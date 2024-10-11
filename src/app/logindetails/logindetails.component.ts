@@ -43,12 +43,14 @@ export class LogindetailsComponent {
 
     console.log('Value is' + login);
     if (adminEmail == login.email && adminPassword == login.password) {
+     
       this.router.navigateByUrl('/admindashboard');
     } else {
       this.loginService.checkIfValid(login).subscribe((data) => {
         const login = data;
         console.log(login);
         if (login.email != null) {
+         
           this.router.navigateByUrl('/order-details');
         } else {
           this.errormsg = 'Invalid credentials';
