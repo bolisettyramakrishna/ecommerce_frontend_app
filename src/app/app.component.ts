@@ -7,6 +7,9 @@ import { SearchComponent } from './search/search.component';
 import { CartService } from './services/cart.service';
 import { CheckoutComponent } from './checkout/checkout.component';
 import { LoginComponent } from './login/login.component';
+import { AdmindashboardComponent } from './admindashboard/admindashboard.component';
+import { ResetpasswordComponent } from './resetpassword/resetpassword.component';
+import { RegisterComponent } from './register/register.component';
 
 @Component({
   selector: 'app-root',
@@ -19,7 +22,10 @@ import { LoginComponent } from './login/login.component';
     ProductCategoryComponent,
     SearchComponent,
     CheckoutComponent,
-    LoginComponent
+    LoginComponent,
+    AdmindashboardComponent,
+    ResetpasswordComponent,
+    RegisterComponent,
   ],
   templateUrl: './app.component.html',
   styleUrl: './app.component.css',

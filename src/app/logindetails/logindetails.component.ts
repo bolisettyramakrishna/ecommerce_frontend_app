@@ -10,12 +10,15 @@ import { Router, RouterModule } from '@angular/router';
   standalone: true,
   imports: [CommonModule, ReactiveFormsModule, RouterModule],
   templateUrl: './logindetails.component.html',
-  styleUrl: './logindetails.component.css'
+  styleUrl: './logindetails.component.css',
 })
 export class LogindetailsComponent {
-
-  errormsg:string="";
-  constructor(private formBuilder: FormBuilder, private loginService: LoginService, private router: Router) { }
+  errormsg: string = '';
+  constructor(
+    private formBuilder: FormBuilder,
+    private loginService: LoginService,
+    private router: Router
+  ) {}
 
   loginFormGroup!: FormGroup;
 
@@ -23,34 +26,32 @@ export class LogindetailsComponent {
     this.loginFormGroup = this.formBuilder.group({
       login: this.formBuilder.group({
         email: [''],
-        password: ['']
-      })
+        password: [''],
+      }),
     });
   }
 
   onSubmit() {
-    
+    let adminEmail = 'admin@gmail.com';
+    let adminPassword = 'admin123';
 
-    let adminEmail = "admin@gmail.com";
-    let adminPassword = "admin123"
-
-    console.log("Handling submit form value");
+    console.log('Handling submit form value');
     console.log(this.loginFormGroup.get('login')?.value);
 
     let login = new Login();
     login = this.loginFormGroup.get('login')?.value;
-    
-    console.log("Value is" + login);
+
+    console.log('Value is' + login);
     if (adminEmail == login.email && adminPassword == login.password) {
-      this.router.navigateByUrl("/admindashboard");
+      this.router.navigateByUrl('/admindashboard');
     } else {
-      this.loginService.checkIfValid(login).subscribe(data => {
+      this.loginService.checkIfValid(login).subscribe((data) => {
         const login = data;
         console.log(login);
         if (login.email != null) {
-          this.router.navigateByUrl("/order-details");
+          this.router.navigateByUrl('/order-details');
         } else {
-          this.errormsg="Invalid credentials";
+          this.errormsg = 'Invalid credentials';
           console.log(this.errormsg);
         }
       });
