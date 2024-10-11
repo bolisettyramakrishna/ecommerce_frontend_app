@@ -2,9 +2,12 @@
     <div class="section-content section-content-p30">
         <div class="container-fluid">
             <h2>Login Page</h2>
+            <div *ngIf="errormsg" class="error-message">
+                {{errormsg}}
+            </div>
             <form [formGroup]="loginFormGroup" (ngSubmit)="onSubmit()">
                 <!--Login page-->
-                <div formGroupName="login" class="form-area" >
+                <div formGroupName="login" class="form-area">
                     <div class="row">
                         <div class="col-md-2"><label>Email:</label></div>
                         <div class="col-md-2">
@@ -25,9 +28,9 @@
                 <div class="text-center">
                     <button type="submit" class="btn btn-info">Login</button>
                 </div>
-                <div class="text-center">
-                    <a routerLink="/forgotpwd">Forgot Password?</a>
-                </div>
+                <br>
+                <span style="padding-right: 520px;"><a routerLink="/forgotpwd">Forgot Password?</a></span>
+                <span><a routerLink="/register">Sign Up?</a></span>
             </form>
         </div>
     </div>

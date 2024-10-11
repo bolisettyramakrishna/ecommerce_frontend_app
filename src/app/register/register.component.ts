@@ -13,7 +13,8 @@ import { RegisterService } from '../services/register.service';
 })
 export class RegisterComponent {
   
-
+  errormsg:string="";
+  successmsg:string="";
 
   constructor(private formBuilder: FormBuilder,private register:RegisterService) { }
 
@@ -36,11 +37,14 @@ export class RegisterComponent {
     register = this.registerFormGroup.get('register')?.value;
     this.register.register(register).subscribe(
       response => {
-        alert("Registration completed "+response);
+        console.log(response);
+        this.successmsg=response;
+        
       },
       error => {
-        console.log("error");
-        alert("Error occured while registering"+error);
+        console.log(error);
+        this.successmsg=error;
+        
       }
     );
   }

@@ -11,6 +11,9 @@ import { ForgotpwdService } from '../services/forgotpwd.service';
   styleUrl: './forgotpassword.component.css'
 })
 export class ForgotpasswordComponent implements OnInit{
+
+  errormsg:string="";
+  successmsg:string="";
   forgotpwdFormGroup!: FormGroup;
 
   constructor(private formBuilder:FormBuilder,private forgotpwd:ForgotpwdService){}
@@ -31,10 +34,18 @@ export class ForgotpasswordComponent implements OnInit{
 
     this.forgotpwd.sendMail(email).subscribe(
       response => {
-        alert('Email sent successfully'+response);
+        console.log(response);
+        if(response){
+          this.successmsg="Email sent successfully";
+          this.errormsg="";
+        }else{
+          this.errormsg="Please enter valid email id";
+          this.successmsg="";
+        }
       },
       error => {
-        alert('Error occured while sending mail'+error);
+        this.successmsg="";
+        this.errormsg="Some exception occured";
       }
     );
 

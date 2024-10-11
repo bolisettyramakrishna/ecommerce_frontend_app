@@ -14,6 +14,7 @@ import { Router, RouterModule } from '@angular/router';
 })
 export class LogindetailsComponent {
 
+  errormsg:string="";
   constructor(private formBuilder: FormBuilder, private loginService: LoginService, private router: Router) { }
 
   loginFormGroup!: FormGroup;
@@ -28,17 +29,17 @@ export class LogindetailsComponent {
   }
 
   onSubmit() {
+    
 
     let adminEmail = "admin@gmail.com";
     let adminPassword = "admin123"
-
 
     console.log("Handling submit form value");
     console.log(this.loginFormGroup.get('login')?.value);
 
     let login = new Login();
     login = this.loginFormGroup.get('login')?.value;
-
+    
     console.log("Value is" + login);
     if (adminEmail == login.email && adminPassword == login.password) {
       this.router.navigateByUrl("/admindashboard");
@@ -49,7 +50,8 @@ export class LogindetailsComponent {
         if (login.email != null) {
           this.router.navigateByUrl("/order-details");
         } else {
-          alert(`Invalid credentials`);
+          this.errormsg="Invalid credentials";
+          console.log(this.errormsg);
         }
       });
     }

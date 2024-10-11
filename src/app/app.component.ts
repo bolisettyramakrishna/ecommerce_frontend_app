@@ -7,7 +7,6 @@ import { SearchComponent } from './search/search.component';
 import { CartService } from './services/cart.service';
 import { CheckoutComponent } from './checkout/checkout.component';
 import { LoginComponent } from './login/login.component';
-import { RegisterbtnComponent } from './registerbtn/registerbtn.component';
 
 @Component({
   selector: 'app-root',
@@ -20,8 +19,7 @@ import { RegisterbtnComponent } from './registerbtn/registerbtn.component';
     ProductCategoryComponent,
     SearchComponent,
     CheckoutComponent,
-    LoginComponent,
-    RegisterbtnComponent
+    LoginComponent
   ],
   templateUrl: './app.component.html',
   styleUrl: './app.component.css',

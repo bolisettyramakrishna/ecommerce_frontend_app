@@ -79,7 +79,7 @@ export class CheckoutComponent implements OnInit {
     //Call the checkout service to place the order
     this.checkoutService.placeOrder(purchase).subscribe({
       next: response => {
-        
+        console.log(response);
         const razorpayOrderId = response.razorpayOrderId; 
         const amount = this.totalPrice; 
         this.orderTrackingId = response.orderTrackingNumber;
@@ -97,7 +97,7 @@ export class CheckoutComponent implements OnInit {
   initiateRazorpayPayment(razorpayOrderId: string, amount: number) {
     console.log('Entering initiateRazorpayPayment method');
     const options = {
-      key: 'rzp_test_idJE2NchVhWaQx', // Enter the Key ID generated from the Razorpay Dashboard
+      key: 'rzp_test_tuikA9DbNmuQ6Y', // Enter the Key ID generated from the Razorpay Dashboard
       amount: amount * 100, // Amount is in currency subunits (i.e., paise for INR)
       currency: 'INR',
       name: 'Ashok-IT',

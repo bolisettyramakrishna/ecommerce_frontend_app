@@ -16,6 +16,7 @@ export class ResetpasswordComponent{
   constructor(private formBuilder: FormBuilder,private resetPwd:ResetpwdService){}
 
   resetFormGroup!: FormGroup;
+  successmsg:string="";
   
   ngOnInit(){
     this.resetFormGroup = this.formBuilder.group({
@@ -32,13 +33,12 @@ export class ResetpasswordComponent{
     resetpwd = this.resetFormGroup.get('reset')?.value;
     this.resetPwd.resetpassword(resetpwd).subscribe(
       response => {
-        const responseString = JSON.stringify(response);
-        alert(responseString);
+        console.log(response);
+        this.successmsg=response;
       },
       error => {
-        console.log("error");
-        const responseString = JSON.stringify(error);
-        alert('Error occured while sending mail'+error);
+        console.log(error);
+        this.successmsg=error;
       }
     );
   }

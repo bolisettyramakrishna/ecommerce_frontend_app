@@ -2,6 +2,9 @@
     <div class="section-content section-content-p30">
         <div class="container-fluid">
             <h2>Registration Page</h2>
+            <div *ngIf="successmsg" class="success-message">
+                {{successmsg}}
+            </div>
             <form [formGroup]="registerFormGroup" (ngSubmit)="onSubmit()">
                 <!--Forgot password page-->
                 <div formGroupName="register" class="form-area" >

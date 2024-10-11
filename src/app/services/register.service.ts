@@ -12,8 +12,8 @@ export class RegisterService {
 
   constructor(private httpClient: HttpClient) { }
 
-  register(Register: Register):Observable<any>{
+  register(Register: Register):Observable<string>{
     console.log("Inside email check"+Register.email+" "+Register.name+" "+Register.phoneNo+" "+Register.password);
-    return this.httpClient.post<Boolean>(this.apiUrl,Register);
+    return this.httpClient.post(this.apiUrl,Register,{responseType:'text'});
   }
 }
