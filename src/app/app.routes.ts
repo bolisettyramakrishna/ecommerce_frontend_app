@@ -20,11 +20,11 @@ export const routes: Routes = [
   { path: 'checkout', component: CheckoutComponent },
   { path: 'products', component: ProductListComponent },
   {path:'login-details',component:LogindetailsComponent},
-  {path:'order-details',component:OrderdetailsComponent},
+  {path:'order-details/:email',component:OrderdetailsComponent},
   { path: 'product-category', component: ProductCategoryComponent },
   {path:'admindashboard',component:AdmindashboardComponent},
   {path:'forgotpwd',component:ForgotpasswordComponent},
-  {path:'resetpwd',component:ResetpasswordComponent},
+  {path:'resetpwd/:email',component:ResetpasswordComponent},
   {path:'register',component:RegisterComponent},
   { path: '', redirectTo: '/products', pathMatch: 'full' },
   { path: '**', redirectTo: '/products', pathMatch: 'full' }

@@ -12,8 +12,12 @@ export class ResetpwdService {
 
   constructor(private httpClient: HttpClient) { }
 
-  resetpassword(Resetpwd: Resetpwd):Observable<string>{
-    console.log("Inside email check"+Resetpwd.email+" "+Resetpwd.newPwd+" "+Resetpwd.confirmNewPwd);
-    return this.httpClient.post(this.apiUrl,Resetpwd,{responseType:'text'});
+ 
+
+  resetpassword(Resetpwd: Resetpwd,email:string):Observable<string>{
+    console.log("Inside email check"+email+" "+Resetpwd.newPwd+" "+Resetpwd.confirmNewPwd);
+    const url = `${this.apiUrl}/${email}`;
+    console.log("URL is "+url);
+    return this.httpClient.post(url,Resetpwd,{responseType:'text'});
   }
 }

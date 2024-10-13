@@ -6,7 +6,7 @@ export class OrderResponse {
   orderTrackingNum: string = '';
   email: string= '';
   orderId: number = 0;
-  dateCreated: string = '';
+  createdDate: string = '';
   orderStatus: string = '';
   totalPrice: number = 0;
   totalQuantity: number = 0;
