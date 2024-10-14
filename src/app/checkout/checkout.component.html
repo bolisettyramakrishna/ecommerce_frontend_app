@@ -1,84 +1,86 @@
 <div class="container">
 
-<!-- Payment success message section, shown when payment is successful -->
-<div *ngIf="paymentSuccess" class="payment-success">
-  <h2>Payment Successful!</h2>
-  <p>Your order has been placed successfully with Order Tracking ID: <strong>{{ orderTrackingId }}</strong>.</p>
-  <button class="btn btn-primary" (click)="continueShopping()">Continue Shopping</button>
-</div>
-
-<!-- Checkout form, shown only when payment is not successful -->
-<div *ngIf="!paymentSuccess">
-  <form (ngSubmit)="onSubmit()" #checkoutForm="ngForm">
-
-
-  <!-- <form (ngSubmit)="onSubmit()" #checkoutForm="ngForm">
-   -->
-    <!-- Customer details section -->
-    <div class="card mb-3">
-      <div class="card-header">
-        <h3>Customer Information</h3>
-      </div>
-      <div class="card-body">
-        <div class="form-group">
-          <label for="name">Name</label>
-          <input type="text" id="name" class="form-control" [(ngModel)]="customer.name" name="name" required minlength="2">
-        </div>
-        <div class="form-group">
-          <label for="email">Email</label>
-          <input type="email" id="email" class="form-control" [(ngModel)]="customer.email" name="email" required email>
-        </div>
-        <div class="form-group">
-          <label for="phno">Phone Number</label>
-          <input type="text" id="phno" class="form-control" [(ngModel)]="customer.phno" name="phno" required pattern="^[0-9]{10}$">
-        </div>
-      </div>
-    </div>
+  <!-- Payment success message section, shown when payment is successful -->
+  <div *ngIf="paymentSuccess" class="payment-success">
+    <h2>Payment Successful!</h2>
+    <p>Your order has been placed successfully with Order Tracking ID: <strong>{{ orderTrackingId }}</strong>.</p>
+    <button class="btn btn-primary" (click)="continueShopping()">Continue Shopping</button>
+  </div>
   
-    <!-- Address details section -->
-    <div class="card mb-3">
-      <div class="card-header">
-        <h3>Address Information</h3>
-      </div>
-      <div class="card-body">
-        <div class="form-group">
-          <label for="houseno">House Number</label>
-          <input type="text" id="houseno" class="form-control" [(ngModel)]="address.houseno" name="houseno" required>
-        </div>
-        <div class="form-group">
-          <label for="street">Street</label>
-          <input type="text" id="street" class="form-control" [(ngModel)]="address.street" name="street" required>
-        </div>
-        <div class="form-group">
-          <label for="city">City</label>
-          <input type="text" id="city" class="form-control" [(ngModel)]="address.city" name="city" required>
-        </div>
-        <div class="form-group">
-          <label for="state">State</label>
-          <input type="text" id="state" class="form-control" [(ngModel)]="address.state" name="state" required>
-        </div>
-        <div class="form-group">
-          <label for="zipCode">Zip Code</label>
-          <input type="text" id="zipCode" class="form-control" [(ngModel)]="address.zipCode" name="zipCode" required>
-        </div>
-        <div class="form-group">
-          <label for="country">Country</label>
-          <input type="text" id="country" class="form-control" [(ngModel)]="address.country" name="country" required>
-        </div>
-      </div>
-    </div>
   
-    <!-- Order summary section -->
-    <div class="card mb-3">
-      <div class="card-header">
-        <h3>Order Summary</h3>
+  <!-- Checkout form, shown only when payment is not successful -->
+  <div *ngIf="!paymentSuccess">
+    <form (ngSubmit)="onSubmit()" #checkoutForm="ngForm">
+  
+  
+    <!-- <form (ngSubmit)="onSubmit()" #checkoutForm="ngForm">
+     -->
+      <!-- Customer details section -->
+      <div class="card mb-3">
+        <div class="card-header">
+          <h3>Customer Information</h3>
+        </div>
+        <div class="card-body">
+          <div class="form-group">
+            <label for="name">Name</label>
+            <input type="text" id="name" class="form-control" [(ngModel)]="customer.name" name="name" required minlength="2">
+          </div>
+          <div class="form-group">
+            <label for="email">Email</label>
+            <input type="email" id="email" class="form-control" [(ngModel)]="customer.email" name="email" required email>
+          </div>
+          <div class="form-group">
+            <label for="phno">Phone Number</label>
+            <input type="text" id="phno" class="form-control" [(ngModel)]="customer.phno" name="phno" required pattern="^[0-9]{10}$">
+          </div>
+        </div>
       </div>
-      <div class="card-body">
-        <p><strong>Total Quantity: </strong>{{ totalQuantity }}</p>
-        <p><strong>Total Price: </strong>{{ totalPrice  }}</p>
+    
+      <!-- Address details section -->
+      <div class="card mb-3">
+        <div class="card-header">
+          <h3>Address Information</h3>
+        </div>
+        <div class="card-body">
+          <div class="form-group">
+            <label for="houseno">House Number</label>
+            <input type="text" id="houseno" class="form-control" [(ngModel)]="address.houseno" name="houseno" required>
+          </div>
+          <div class="form-group">
+            <label for="street">Street</label>
+            <input type="text" id="street" class="form-control" [(ngModel)]="address.street" name="street" required>
+          </div>
+          <div class="form-group">
+            <label for="city">City</label>
+            <input type="text" id="city" class="form-control" [(ngModel)]="address.city" name="city" required>
+          </div>
+          <div class="form-group">
+            <label for="state">State</label>
+            <input type="text" id="state" class="form-control" [(ngModel)]="address.state" name="state" required>
+          </div>
+          <div class="form-group">
+            <label for="zipCode">Zip Code</label>
+            <input type="text" id="zipCode" class="form-control" [(ngModel)]="address.zipCode" name="zipCode" required>
+          </div>
+          <div class="form-group">
+            <label for="country">Country</label>
+            <input type="text" id="country" class="form-control" [(ngModel)]="address.country" name="country" required>
+          </div>
+        </div>
       </div>
-    </div>
-
-    <button class="btn btn-success" type="submit">Place Order</button>
-  </form>
-</div>
+    
+      <!-- Order summary section -->
+      <div class="card mb-3">
+        <div class="card-header">
+          <h3>Order Summary</h3>
+        </div>
+        <div class="card-body">
+          <p><strong>Total Quantity: </strong>{{ totalQuantity }}</p>
+          <p><strong>Total Price: </strong>{{ totalPrice  }}</p>
+        </div>
+      </div>
+  
+      <button class="btn btn-success" type="submit">Place Order</button>
+    </form>
+  </div>
+  
