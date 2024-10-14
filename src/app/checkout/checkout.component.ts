@@ -177,4 +177,9 @@ export class CheckoutComponent implements OnInit {
 
   
 
+
 }
+  //   console.log('Exiting onPaymentSuccess method');
+  // }
+}
+

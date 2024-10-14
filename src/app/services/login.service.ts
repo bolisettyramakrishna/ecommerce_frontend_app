@@ -8,12 +8,28 @@ import { Observable } from 'rxjs';
 })
 export class LoginService {
 
+  session: any = null;
+  adminEmail: string = 'admin@gmail.com';
+  adminPassword: string = 'admin123';
+
   private apiUrl = "http://localhost:8082/api/customer/loginHandle";
 
   constructor(private httpClient: HttpClient) { }
 
-  checkIfValid(Login: Login):Observable<any>{
-    console.log("Inside email check"+Login.email);
-    return this.httpClient.post<Login>(this.apiUrl,Login);
+  checkIfAdmin(Login: Login) {
+    if (this.adminEmail == Login.email && this.adminPassword == Login.password) {
+      this.session = { username: 'admin' };
+      console.log("Inside email check" + Login.email + " " + Login.password);
+      return true;
+    }
+    return false;
+  }
+  checkIfValid(Login: Login): Observable<any> {
+    console.log("Inside email check" + Login.email + " " + Login.password);
+    console.log(this.httpClient.post<Login>(this.apiUrl, Login));
+    return this.httpClient.post<Login>(this.apiUrl, Login);
+  }
+  logout() {
+    this.session = null;
   }
 }
