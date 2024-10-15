@@ -1,6 +1,6 @@
 import { CommonModule } from '@angular/common';
 import { Component } from '@angular/core';
-import { FormBuilder, FormGroup, ReactiveFormsModule } from '@angular/forms';
+import { FormBuilder, FormGroup, NgForm, ReactiveFormsModule } from '@angular/forms';
 import { Login } from '../common/login';
 import { LoginService } from '../services/login.service';
 import { Router, RouterModule } from '@angular/router';
@@ -59,5 +59,7 @@ export class LogindetailsComponent {
         }
       });
     }
+    this.loginFormGroup.reset();
   }
+
 }

@@ -48,7 +48,7 @@ export class ForgotpasswordComponent implements OnInit{
         this.errormsg="Some exception occured";
       }
     );
-
+    this.forgotpwdFormGroup.reset();
   }
 
 }

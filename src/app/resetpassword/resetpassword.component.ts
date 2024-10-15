@@ -44,6 +44,7 @@ export class ResetpasswordComponent{
         this.successmsg=error;
       }
     );
+    this.resetFormGroup.reset();
   }
   
 }
