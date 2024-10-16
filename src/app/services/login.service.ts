@@ -45,4 +45,6 @@ export class LoginService {
     // Navigate to home page after logout
     this.router.navigate(['/']);
   }
+
+  
 }

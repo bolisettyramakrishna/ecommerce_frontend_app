@@ -81,6 +81,10 @@ strong {
 .btn-primary {
   display: block; /* Make the button block-level */
   margin-top: 10px; /* Reduced space above the button */
+  width: 200px; /* Set a fixed width */
+  padding: 8px 12px; /* Adjust padding */
+  border-radius: 25px; /* Optional: Rounded corners */
+  text-align: center; /* Center text */
 }
 
 /* Responsive Styles */
