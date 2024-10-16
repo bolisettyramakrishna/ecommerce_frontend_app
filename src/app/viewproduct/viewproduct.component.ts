@@ -9,33 +9,63 @@ import {
 import { FormsModule } from '@angular/forms';
 import { DashboardService } from '../services/dashboard.service';
 import { Productresponse } from '../common/productresponse';
+import { ActivatedRoute, Router, RouterModule } from '@angular/router';
 
 @Component({
   selector: 'app-viewproduct',
   standalone: true,
-  imports: [FormsModule, CommonModule],
+  imports: [FormsModule, CommonModule, RouterModule],
   templateUrl: './viewproduct.component.html',
   styleUrl: './viewproduct.component.css',
 })
 export class ViewproductComponent implements OnInit, OnChanges {
-  @Input() isOpen = false;
-  @Input() orderId: any;
-  @Input() productData: Productresponse[] = [];
+  orderId: number = 0;
+  oId: string = '';
+  products: Productresponse[] = [];
 
-  constructor(public dashboardService: DashboardService) {}
-  isModalOpen = false;
-
-  ngOnInit(): void {}
+  constructor(
+    private route: ActivatedRoute,
+    public dashBoardService: DashboardService,
+    private router: Router
+  ) {}
 
   ngOnChanges(changes: SimpleChanges): void {
-    this.isModalOpen = true;
+    // this.route.params.subscribe((params) => {
+    //   this.orderId = params['orderId'];
+    //   this.fetchProducts(this.orderId);
+    // });
   }
 
-  openModal() {
-    this.isModalOpen = true;
+  ngOnInit(): void {
+    this.oId = this.route.snapshot.paramMap.get('orderId')!;
+    this.fetchProducts(this.oId);
+
+    // this.route.params.subscribe((params) => {
+    //   this.orderId = params['orderId'];
+    //   this.fetchProducts(this.orderId);
+    // });
   }
 
-  closeModal() {
-    this.isOpen = false;
+  fetchProducts(oId: string) {
+    const id = Number(oId);
+
+    this.dashBoardService
+      .fetchProductData(id)
+      .subscribe((data: Productresponse[]) => {
+        this.products = data;
+      });
+  }
+  // fetchProducts(id: number) {
+  //   console.log('fetchProd');
+  //   console.log(id);
+  //   this.dashBoardService
+  //     .fetchProductData(id)
+  //     .subscribe((data: Productresponse[]) => {
+  //       this.products = data;
+  //     });
+  // }
+
+  backDashboard() {
+    this.router.navigateByUrl('/filterOrders');
   }
 }

@@ -11,6 +11,7 @@ import { ForgotpasswordComponent } from './forgotpassword/forgotpassword.compone
 import { ResetpasswordComponent } from './resetpassword/resetpassword.component';
 import { RegisterComponent } from './register/register.component';
 import { AdminFilterSearchComponent } from './admin-filter-search/admin-filter-search.component';
+import { ViewproductComponent } from './viewproduct/viewproduct.component';
 
 export const routes: Routes = [
   { path: 'cart', component: CartComponent },
@@ -29,6 +30,7 @@ export const routes: Routes = [
   { path: 'register', component: RegisterComponent },
   { path: 'filterOrders', component: AdminFilterSearchComponent },
   { path: 'adDashBoard', component: AdmindashboardComponent },
+  { path: 'viewProduct/:orderId', component: ViewproductComponent },
 
   { path: '', redirectTo: '/products', pathMatch: 'full' },
   { path: '**', redirectTo: '/products', pathMatch: 'full' },

@@ -84,12 +84,9 @@
               <td>{{ order.orderTrackingNum }}</td>
               <td>{{ order.razorPayPaymentId }}</td>
               <td>
-                <!-- <button (click)="openModal(order.orderId)">
-                  View Products
-                </button> -->
-                <a
-                  href=""
-                  (click)="openModal(order.orderId); $event.preventDefault()"
+                <!-- [routerLink]="['/viewProduct', order.orderId]" -->
+                <!-- <a [routerLink]="['/viewProduct', order.orderId]" (click)="getProduct(order.orderId)">View Products</a> -->
+                <a [routerLink]="['/viewProduct', order.orderId]"
                   >View Products</a
                 >
               </td>
@@ -100,13 +97,6 @@
       <ng-template #noOrders>
         <p>No orders found.</p>
       </ng-template>
-    </div>
-    <div>
-      <app-viewproduct
-        [isOpen]="isModalOpen"
-        [orderId]="sendOrderId"
-        [productData]="products"
-      ></app-viewproduct>
     </div>
   </div>
 </div>
