@@ -2,6 +2,8 @@ import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Login } from '../common/login';
 import { map, Observable } from 'rxjs';
+import { Router } from '@angular/router';
+import { UserRoleService } from './user-role.service';
 
 @Injectable({
   providedIn: 'root',
@@ -11,8 +13,9 @@ export class LoginService {
   session: any = null;
   adminEmail: string = 'admin@gmail.com';
   adminPassword: string = 'admin123';
+  
 
-  constructor(private httpClient: HttpClient) {}
+  constructor(private httpClient: HttpClient, private router: Router, private userRoleService: UserRoleService) {}
 
   checkIfAdmin(Login: Login) {
     if (
@@ -32,5 +35,14 @@ export class LoginService {
   }
   logout() {
     this.session = null;
+
+    // Set role to 'normalUser' via UserRoleService
+    this.userRoleService.setUserRole('normalUser'); 
+
+    // Remove role from session storage
+    sessionStorage.removeItem('role');
+
+    // Navigate to home page after logout
+    this.router.navigate(['/']);
   }
 }

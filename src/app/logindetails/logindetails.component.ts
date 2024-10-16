@@ -9,6 +9,7 @@ import {
 import { Login } from '../common/login';
 import { LoginService } from '../services/login.service';
 import { Router, RouterModule } from '@angular/router';
+import { UserRoleService } from '../services/user-role.service';
 
 @Component({
   selector: 'app-logindetails',
@@ -24,6 +25,7 @@ export class LogindetailsComponent {
   constructor(
     private formBuilder: FormBuilder,
     private loginService: LoginService,
+    private userRoleService: UserRoleService,  // Inject UserRoleService
     private router: Router
   ) {}
 
@@ -49,10 +51,12 @@ export class LogindetailsComponent {
 
     this.isAdmin = this.loginService.checkIfAdmin(login);
     if (this.isAdmin) {
+      this.userRoleService.setUserRole('adminUser'); 
       this.router.navigateByUrl('/admindashboard');
-      sessionStorage.setItem('role', 'adminUser');
+      //sessionStorage.setItem('role', 'adminUser');
     } else {
-      sessionStorage.setItem('role', 'normalUser');
+      this.userRoleService.setUserRole('normalUser'); // Set 'normalUser' role
+     // sessionStorage.setItem('role', 'normalUser');
 
       this.loginService.checkIfValid(login).subscribe((data) => {
         const login = data;     

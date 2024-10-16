@@ -35,6 +35,7 @@ export class AppComponent implements OnInit, OnChanges {
   userRole: String = '';
   cartQuantity = 0;
   cartTotal = 0;
+  
 
   constructor(private cartService: CartService) {
     this.updateCartDetails();
@@ -54,9 +55,12 @@ export class AppComponent implements OnInit, OnChanges {
       }
     );
 
-    this.userRole = sessionStorage.getItem('role') || '';
-    console.log('App - component productCategory');
-    console.log(this.userRole);
+    // this.userRole = sessionStorage.getItem('role') || '';
+    // console.log('App - component productCategory');
+    // console.log(this.userRole);
+
+    this.userRole = sessionStorage.getItem('role') || 'normalUser'; // Default to normalUser
+    console.log('AppComponent - Role:', this.userRole);
   }
 
   ngOnChanges(): void {
@@ -68,6 +72,10 @@ export class AppComponent implements OnInit, OnChanges {
   updateCartDetails() {
     this.cartQuantity = this.cartService.getTotalQuantity();
     this.cartTotal = this.cartService.getTotalPrice();
+  }
+
+  updateUserRole() {
+    this.userRole = sessionStorage.getItem('role') || 'normalUser';
   }
 
   

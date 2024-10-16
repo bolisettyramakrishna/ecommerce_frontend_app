@@ -1,21 +1,95 @@
-table {
+/* General Styles */
+body {
+  background-color: #f9f9f9; /* Light background for a soft look */
+  font-family: 'Arial', sans-serif; /* Use a clean font */
+  margin: 0;
+  padding: 20px;
+}
+
+/* Heading Style */
+h1 {
+  text-align: center;
+  color: #333; /* Darker color for better contrast */
+  margin: 80px 0 20px; /* Increased top margin to 80px for more space */
+  font-size: 2em; /* Larger font size for better visibility */
+  font-weight: bold; /* Bold font for emphasis */
+}
+
+/* Table Styles */
+.table {
   width: 100%;
   border-collapse: collapse;
-  margin-top: 20px;
+  border-radius: 8px; /* Rounded corners */
+  overflow: hidden; /* To ensure border-radius applies */
+  box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1); /* Soft shadow */
+  background-color: white; /* White background for the table */
+  border: 2px solid #007bff; /* Blue outline for the entire cart */
 }
 
-th,
-td {
-  border: 1px solid #ddd;
-  padding: 8px;
-  text-align: left;
+/* Header Styles */
+.table thead {
+  background-color: #007bff; /* Bootstrap primary color */
+  color: white; /* White text */
 }
 
-th {
-  background-color: #f2f2f2;
+/* Header Column Styles */
+.table th {
+  padding: 12px 15px; /* Adequate padding for each header */
+  text-align: left; /* Align text to the left */
 }
 
-.cart-item img {
-  max-width: 100px; /* Ensure images do not exceed this width */
-  height: auto; /* Maintain aspect ratio */
+/* Body Row Styles */
+.table tbody tr {
+  transition: background-color 0.3s; /* Smooth transition for hover */
+}
+
+.table tbody tr:hover {
+  background-color: #f2f2f2; /* Light gray on hover */
+}
+
+/* Product Image Styles */
+.img-fluid {
+  border-radius: 5px; /* Rounded image corners */
+}
+
+/* Product Details */
+td h3 {
+  font-size: 1.2em; /* Slightly larger product names */
+  color: #555; /* Medium color for product names */
+  margin: 5px 0; /* Margins for spacing */
+}
+
+/* Button Styles */
+.btn {
+  border-radius: 5px; /* Rounded button corners */
+  padding: 5px 10px; /* Adequate padding */
+}
+
+/* Quantity Controls */
+.d-flex {
+  display: flex;
+  align-items: center;
+}
+
+/* Cart Summary Styles */
+strong {
+  display: block; /* Block style for better spacing */
+  margin: 5px 0; /* Reduced margins for spacing */
+}
+
+/* Proceed to Checkout Button */
+.btn-primary {
+  display: block; /* Make the button block-level */
+  margin-top: 10px; /* Reduced space above the button */
+}
+
+/* Responsive Styles */
+@media (max-width: 768px) {
+  .table {
+    font-size: 0.9em; /* Slightly smaller font on mobile */
+  }
+
+  h1 {
+    font-size: 1.5em; /* Reduce heading size on mobile */
+  }
 }

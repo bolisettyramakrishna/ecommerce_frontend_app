@@ -1,0 +1,105 @@
+/* Ensure the body takes full height and handles overflow properly */
+html, body {
+    height: 100%;
+    margin: 0;
+    padding: 0;
+    overflow-x: hidden; /* Prevent horizontal scroll */
+    background-color: #f9f9f9; /* Light background color */
+    font-family: 'Arial', sans-serif; /* Clean and modern font */
+}
+
+/* If you have a fixed header, account for its height */
+body {
+    padding-top: 80px; /* Adjust this value to the height of your header */
+}
+
+/* Main content styling */
+.main-content {
+    max-width: 1200px;
+    margin: 0 auto; /* Center the main content */
+    padding: 20px;
+    min-height: calc(100vh - 70px); /* Ensure content takes the full viewport height minus the header */
+    background-color: #fff; /* White background for the main content */
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1); /* Soft shadow */
+    border-radius: 10px; /* Rounded corners */
+}
+
+/* Product grid container */
+.section-content {
+    padding: 30px;
+    background-color: #fff;
+    border-radius: 10px;
+}
+
+/* Product box styles */
+.product-box {
+    width: 250px; /* Set a fixed width for each product */
+    height: 350px; /* Set a fixed height for each product */
+    padding: 15px; /* Add some padding inside the product box */
+    border: 1px solid #ccc; /* Add a light border */
+    border-radius: 10px; /* Rounded corners for a neat look */
+    text-align: center; /* Center-align the content */
+    background-color: #ffffff; /* White background */
+    margin: 15px; /* Space between products */
+    box-shadow: 0px 2px 5px rgba(0, 0, 0, 0.1); /* Subtle shadow for depth */
+}
+
+.product-box:hover {
+    box-shadow: 0 8px 16px rgba(0, 0, 0, 0.15);
+}   
+
+/* Product image styles */
+.product-box img {
+    max-width: 100%; /* Make sure the image fits within the box */
+    height: 150px; /* Set a fixed height for the image */
+    object-fit: cover; /* Maintain aspect ratio and cover the area */
+    margin-bottom: 10px; /* Space between the image and the text */
+}
+
+.product-box img:hover {
+    transform: scale(1.05);
+}
+
+/* Product name styles */
+.product-box h1 {
+    font-size: 16px; /* Set the font size for the product name */
+    font-weight: bold; /* Make the product name bold */
+    color: #333; /* Dark color for the text */
+    margin-bottom: 10px; /* Space between the name and the price */
+}
+
+.product-box h1:hover {
+    color: #ff5722;
+}
+
+/* Price styling */
+.product-box .price {
+    font-size: 14px; /* Font size for the price */
+    color: #e74c3c; /* Red color for the price */
+    margin-bottom: 15px; /* Space between the price and the button */
+}
+
+/* Add to Cart button styling */
+.product-box button {
+    width: 100%; /* Full-width button */
+    padding: 10px; /* Padding inside the button */
+    background-color: #28a745; /* Green background for the button */
+    color: white; /* White text */
+    border-radius: 5px; /* Rounded corners for the button */
+    border: none; /* Remove default border */
+    cursor: pointer; /* Pointer cursor on hover */
+}
+
+.product-box button:hover {
+    background-color: #218838; /* Darker green on hover */
+}
+
+/* No products message */
+.alert-warning {
+    background-color: #ffecb3;
+    color: #856404;
+    padding: 15px;
+    border-radius: 8px;
+    text-align: center;
+    font-weight: bold;
+}
