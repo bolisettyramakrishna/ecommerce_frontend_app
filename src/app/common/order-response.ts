@@ -12,4 +12,5 @@ export class OrderResponse {
   razorPayPaymentId: string = '';
   updatedDate: string = '';
   address!: Address;
+  customer!: CustomerResponse;
 }

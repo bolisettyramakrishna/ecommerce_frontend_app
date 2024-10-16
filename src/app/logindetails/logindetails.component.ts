@@ -55,17 +55,12 @@ export class LogindetailsComponent {
       sessionStorage.setItem('role', 'normalUser');
 
       this.loginService.checkIfValid(login).subscribe((data) => {
-        const login = data;
-        console.log('checkIfValid');
-        console.log(data);
-        console.log('login');
-        console.log(login);
+        const login = data;     
         if (login.email != null) {
           this.loginService.session = { username: 'user' };
           this.router.navigateByUrl(`/order-details/${login.email}`);
         } else {
           this.errormsg = 'Invalid credentials';
-          console.log(this.errormsg);
         }
       });
     }

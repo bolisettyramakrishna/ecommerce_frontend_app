@@ -1,4 +1,4 @@
-<div *ngIf="userRole === 'normalUser' || ''; else adminCategory">
+<div *ngIf="userRole === 'normalUser' || userRole === ''">
   <div class="product-category">
     <ul class="list-unstyled navbar-list">
       <li *ngFor="let category of productCategories">
@@ -9,7 +9,7 @@
     </ul>
   </div>
 </div>
-<ng-template #adminCategory>
+<div *ngIf="userRole === 'adminUser'">
   <div class="product-category">
     <ul class="list-unstyled navbar-list">
       <li>
@@ -20,4 +20,4 @@
       </li>
     </ul>
   </div>
-</ng-template>
+</div>

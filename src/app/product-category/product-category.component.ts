@@ -31,8 +31,7 @@ export class ProductCategoryComponent implements OnInit, OnChanges {
     this.route.paramMap.subscribe(() => {
       this.listProductCategories();
       this.userRole = sessionStorage.getItem('role') || '';
-      console.log('productCategory');
-      console.log(this.userRole);
+      console.log("Role : "+ this.userRole);
     });
   }
 

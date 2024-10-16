@@ -103,7 +103,7 @@ export class CheckoutComponent implements OnInit {
   initiateRazorpayPayment(razorpayOrderId: string, amount: number) {
     console.log('Entering initiateRazorpayPayment method');
     const options = {
-      key: 'rzp_test_ANOvYSLNOU4ump', // Enter the Key ID generated from the Razorpay Dashboard
+      key: 'rzp_test_m6SJuhq4RdNeRR', // Enter the Key ID generated from the Razorpay Dashboard
       amount: amount * 100, // Amount is in currency subunits (i.e., paise for INR)
       currency: 'INR',
       name: 'Ashok-IT',
