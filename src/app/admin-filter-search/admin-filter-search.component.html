@@ -1,0 +1,112 @@
+<div class="main-content page-m">
+  <h1>Search Order</h1>
+  <form id="searchOrderForm">
+    <div class="form-group">
+      <div style="width: 400px">
+        <label for="email">Email:</label>
+        <input
+          type="text"
+          class="form-control"
+          id="customerEmail"
+          name="customerEmail"
+          [(ngModel)]="orderHistory.customerEmail"
+        />
+      </div>
+    </div>
+    <div class="form-group">
+      <div style="width: 400px">
+        <label for="startDate">Start Date:</label>
+        <input
+          type="date"
+          class="form-control"
+          id="startDate"
+          name="startDate"
+          [(ngModel)]="orderHistory.startDate"
+        />
+      </div>
+    </div>
+    <div class="form-group">
+      <div style="width: 400px">
+        <label for="endDate">End Date:</label>
+        <input
+          type="date"
+          class="form-control"
+          id="endDate"
+          name="endDate"
+          [(ngModel)]="orderHistory.endDate"
+        />
+      </div>
+    </div>
+    <div class="form-group">
+      <div style="width: 400px; display: flex; justify-content: center">
+        <button
+          type="submit"
+          (click)="filterOrders()"
+          style="width: 200px; margin-top: 20px"
+          class="btn btn-primary"
+        >
+          Filter
+        </button>
+      </div>
+    </div>
+  </form>
+  <br />
+  <br />
+  <div class="form-group">
+    <div style="width: 1250px">
+      <div *ngIf="orders.length > 0; else noOrders">
+        <table border="2" class="table table-striped">
+          <thead>
+            <tr>
+              <td>Customer Name</td>
+              <td>Customer Email</td>
+              <td>Customer Phone No</td>
+              <td>Order Id</td>
+              <td>Order Status</td>
+              <td>Created Date</td>
+              <td>Total Price</td>
+              <td>Total Quantity</td>
+              <td>Order Tracking Number</td>
+              <td>Razor Pay Payment Id</td>
+              <td>View Products</td>
+            </tr>
+          </thead>
+          <tbody>
+            <tr *ngFor="let order of orders">
+              <td>{{ order.customer.name }}</td>
+              <td>{{ order.customer.email }}</td>
+              <td>{{ order.customer.phoneNo }}</td>
+              <td>{{ order.orderId }}</td>
+              <td>{{ order.orderStatus }}</td>
+              <td>{{ order.dateCreated }}</td>
+              <td>{{ order.totalPrice }}</td>
+              <td>{{ order.totalQuantity }}</td>
+              <td>{{ order.orderTrackingNum }}</td>
+              <td>{{ order.razorPayPaymentId }}</td>
+              <td>
+                <!-- <button (click)="openModal(order.orderId)">
+                  View Products
+                </button> -->
+                <a
+                  href=""
+                  (click)="openModal(order.orderId); $event.preventDefault()"
+                  >View Products</a
+                >
+              </td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+      <ng-template #noOrders>
+        <p>No orders found.</p>
+      </ng-template>
+    </div>
+    <div>
+      <app-viewproduct
+        [isOpen]="isModalOpen"
+        [orderId]="sendOrderId"
+        [productData]="products"
+      ></app-viewproduct>
+    </div>
+  </div>
+</div>

@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnChanges, OnInit } from '@angular/core';
 import { ProductCategoryService } from '../services/product-category.service';
 import { ProductCategory } from '../common/product-category';
 import { RouterModule, ActivatedRoute } from '@angular/router';
@@ -12,17 +12,27 @@ import { FormsModule } from '@angular/forms';
   templateUrl: './product-category.component.html',
   styleUrls: ['./product-category.component.css'],
 })
-export class ProductCategoryComponent implements OnInit {
+export class ProductCategoryComponent implements OnInit, OnChanges {
   productCategories: ProductCategory[] = [];
+  userRole: String = '';
 
   constructor(
     private productCategoryService: ProductCategoryService,
     private route: ActivatedRoute
   ) {}
 
+  ngOnChanges(): void {
+    this.userRole = sessionStorage.getItem('role') || '';
+    console.log('App - Onchange');
+    console.log(this.userRole);
+  }
+
   ngOnInit(): void {
     this.route.paramMap.subscribe(() => {
       this.listProductCategories();
+      this.userRole = sessionStorage.getItem('role') || '';
+      console.log('productCategory');
+      console.log(this.userRole);
     });
   }
 
@@ -30,5 +40,6 @@ export class ProductCategoryComponent implements OnInit {
     this.productCategoryService.getProductCategories().subscribe((data) => {
       this.productCategories = data;
     });
+    //this.productCategories = [];
   }
 }

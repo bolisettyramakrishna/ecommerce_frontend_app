@@ -2,14 +2,14 @@ import { Address } from './address';
 import { CustomerResponse } from './customer-response';
 
 export class OrderResponse {
-
   orderTrackingNum: string = '';
-  email: string= '';
+  email: string = '';
   orderId: number = 0;
-  createdDate: string = '';
+  dateCreated: string = '';
   orderStatus: string = '';
   totalPrice: number = 0;
   totalQuantity: number = 0;
+  razorPayPaymentId: string = '';
   updatedDate: string = '';
   address!: Address;
 }

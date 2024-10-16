@@ -1,10 +1,23 @@
-
-<div class="product-category">
+<div *ngIf="userRole === 'normalUser' || ''; else adminCategory">
+  <div class="product-category">
     <ul class="list-unstyled navbar-list">
-        <li *ngFor="let category of productCategories">
-            <a [routerLink]="['/category', category.id]">
-                {{ category.categoryName }}
-            </a>
-        </li>
+      <li *ngFor="let category of productCategories">
+        <a [routerLink]="['/category', category.id]">
+          {{ category.categoryName }}
+        </a>
+      </li>
     </ul>
+  </div>
 </div>
+<ng-template #adminCategory>
+  <div class="product-category">
+    <ul class="list-unstyled navbar-list">
+      <li>
+        <a [routerLink]="['/adDashBoard']"> Dashboard </a>
+      </li>
+      <li>
+        <a [routerLink]="['/filterOrders']"> Filter Orders </a>
+      </li>
+    </ul>
+  </div>
+</ng-template>

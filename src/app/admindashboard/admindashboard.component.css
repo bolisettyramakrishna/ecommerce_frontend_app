@@ -25,6 +25,7 @@
   height: 150px; /* Set height of each box */
   /* background-color: lightblue;
   border: 1px solid blue; */
+  border: 1px solid blue;
   /* display: flex; */
   /* align-items: top; */
   /* justify-content: top; Center text inside div */
@@ -34,7 +35,8 @@
 }
 .innerBox {
   /* background-color: salmon;
-  border: 1px solid blue; */
+  align-items: center;
+  border-radius: 5px;*/
   align-items: center;
   border-radius: 5px;
 }

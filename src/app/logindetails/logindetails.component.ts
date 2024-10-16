@@ -1,6 +1,11 @@
 import { CommonModule } from '@angular/common';
 import { Component } from '@angular/core';
-import { FormBuilder, FormGroup, NgForm, ReactiveFormsModule } from '@angular/forms';
+import {
+  FormBuilder,
+  FormGroup,
+  NgForm,
+  ReactiveFormsModule,
+} from '@angular/forms';
 import { Login } from '../common/login';
 import { LoginService } from '../services/login.service';
 import { Router, RouterModule } from '@angular/router';
@@ -19,8 +24,8 @@ export class LogindetailsComponent {
   constructor(
     private formBuilder: FormBuilder,
     private loginService: LoginService,
-    private router: Router,
-  ) { }
+    private router: Router
+  ) {}
 
   loginFormGroup!: FormGroup;
 
@@ -45,10 +50,15 @@ export class LogindetailsComponent {
     this.isAdmin = this.loginService.checkIfAdmin(login);
     if (this.isAdmin) {
       this.router.navigateByUrl('/admindashboard');
-    }
-    if(!this.isAdmin){
+      sessionStorage.setItem('role', 'adminUser');
+    } else {
+      sessionStorage.setItem('role', 'normalUser');
+
       this.loginService.checkIfValid(login).subscribe((data) => {
         const login = data;
+        console.log('checkIfValid');
+        console.log(data);
+        console.log('login');
         console.log(login);
         if (login.email != null) {
           this.loginService.session = { username: 'user' };
@@ -61,5 +71,4 @@ export class LogindetailsComponent {
     }
     this.loginFormGroup.reset();
   }
-
 }

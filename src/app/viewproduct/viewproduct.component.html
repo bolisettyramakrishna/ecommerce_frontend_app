@@ -1,0 +1,32 @@
+<div class="modal" *ngIf="isOpen">
+  <div class="modal-content">
+    <span class="close" (click)="closeModal()">&times;</span>
+    <table border="2" class="table table-striped">
+      <thead>
+        <tr>
+          <td>Product Id</td>
+          <td>Product Name</td>
+          <td>Product Price</td>
+          <td>Product Quantity</td>
+          <td>Product image_url</td>
+        </tr>
+      </thead>
+      <tbody>
+        <tr *ngFor="let product of productData">
+          <td>{{ product.id }}</td>
+          <td>{{ product.productName }}</td>
+          <td>{{ product.price }}</td>
+          <td>{{ product.quantity }}</td>
+          <td>
+            <img
+              src="{{ product.imageUrl }}"
+              class="detail-img"
+              style="height: 100px; width: 100px"
+            />
+          </td>
+        </tr>
+      </tbody>
+    </table>
+    <button (click)="closeModal()">Close</button>
+  </div>
+</div>

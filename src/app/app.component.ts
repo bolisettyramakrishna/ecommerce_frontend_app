@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnChanges, OnInit } from '@angular/core';
 import { RouterModule, RouterOutlet } from '@angular/router';
 import { ProductListComponent } from './product-list/product-list.component';
 import { CommonModule } from '@angular/common';
@@ -30,9 +30,9 @@ import { RegisterComponent } from './register/register.component';
   templateUrl: './app.component.html',
   styleUrl: './app.component.css',
 })
-export class AppComponent implements OnInit {
+export class AppComponent implements OnInit, OnChanges {
   title = 'ecommerce_frontend';
-
+  userRole: String = '';
   cartQuantity = 0;
   cartTotal = 0;
 
@@ -53,6 +53,16 @@ export class AppComponent implements OnInit {
         this.cartTotal = totalPrice;
       }
     );
+
+    this.userRole = sessionStorage.getItem('role') || '';
+    console.log('App - component productCategory');
+    console.log(this.userRole);
+  }
+
+  ngOnChanges(): void {
+    this.userRole = sessionStorage.getItem('role') || '';
+    console.log('App - Onchange');
+    console.log(this.userRole);
   }
 
   updateCartDetails() {

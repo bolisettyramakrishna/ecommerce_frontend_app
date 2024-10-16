@@ -4,6 +4,7 @@ import { map, Observable } from 'rxjs';
 import { Dashboard } from '../common/dashboard';
 import { OrderResponse } from '../common/order-response';
 import { Orderhistory } from '../common/orderhistory';
+import { Productresponse } from '../common/productresponse';
 
 @Injectable({
   providedIn: 'root',
@@ -11,7 +12,7 @@ import { Orderhistory } from '../common/orderhistory';
 export class DashboardService {
   private dashBoardAPIUrl = 'http://localhost:8084/api/admin/dashboard';
   public filterAPIUrl = 'http://localhost:8084/api/admin/filter';
-
+  public productUrl = 'http://localhost:8084/api/admin/orderItems?orderId=';
   public orderResponse: OrderResponse[] = [];
 
   constructor(public httpclient: HttpClient) {}
@@ -29,5 +30,12 @@ export class DashboardService {
       this.filterAPIUrl,
       orderHistory
     );
+  }
+
+  public fetchProductData(orderId: number): Observable<Productresponse[]> {
+    this.productUrl = this.productUrl + orderId;
+    return this.httpclient
+      .get<Productresponse[]>(this.productUrl)
+      .pipe(map((response) => response));
   }
 }
