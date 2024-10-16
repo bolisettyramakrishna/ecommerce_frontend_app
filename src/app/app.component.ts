@@ -42,11 +42,16 @@ export class AppComponent implements OnInit {
 
   ngOnInit(): void {
     this.cartService.totalQuantity$.subscribe(
-      (quantity) => (this.cartQuantity = quantity)
+      (quantity) => {
+        console.log('Updated cart quantity:', quantity); // Debug log
+        (this.cartQuantity = quantity)}
     );
 
     this.cartService.totalPrice$.subscribe(
-      (totalPrice) => (this.cartTotal = totalPrice)
+      (totalPrice) => {
+        console.log('Updated cart total price:', totalPrice); // Debug log
+        this.cartTotal = totalPrice;
+      }
     );
   }
 
@@ -54,4 +59,6 @@ export class AppComponent implements OnInit {
     this.cartQuantity = this.cartService.getTotalQuantity();
     this.cartTotal = this.cartService.getTotalPrice();
   }
+
+  
 }

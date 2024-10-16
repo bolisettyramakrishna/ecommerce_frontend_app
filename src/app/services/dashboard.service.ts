@@ -9,8 +9,8 @@ import { Orderhistory } from '../common/orderhistory';
   providedIn: 'root',
 })
 export class DashboardService {
-  private dashBoardAPIUrl = 'http://localhost:8083/api/admin/dashboard';
-  public filterAPIUrl = 'http://localhost:8083/api/admin/filter';
+  private dashBoardAPIUrl = 'http://localhost:8084/api/admin/dashboard';
+  public filterAPIUrl = 'http://localhost:8084/api/admin/filter';
 
   public orderResponse: OrderResponse[] = [];
 

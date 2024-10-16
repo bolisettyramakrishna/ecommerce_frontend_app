@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, NgZone } from '@angular/core';
 import { Router } from '@angular/router';
 import { CartService } from '../services/cart.service';
 import { CheckoutService } from '../services/checkout.service';
@@ -9,6 +9,8 @@ import { OrderItem } from '../common/order-item';
 import { Purchase } from '../common/purchase';
 import { FormsModule } from '@angular/forms';
 import { CommonModule } from '@angular/common';
+import { PaymentVerificationPayload } from '../common/payment-verification-payload';
+
 declare var Razorpay: any; // Declare Razorpay
 export interface CartItem {
   id: number;
@@ -21,7 +23,7 @@ export interface CartItem {
 @Component({
   selector: 'app-checkout',
   standalone: true,
-  imports: [FormsModule,CommonModule],
+  imports: [FormsModule, CommonModule],
   templateUrl: './checkout.component.html',
   styleUrls: ['./checkout.component.css']
 })
@@ -30,19 +32,20 @@ export class CheckoutComponent implements OnInit {
   totalPrice: number = 0;
   cartItems: OrderItem[] = [];
 
-   
-   orderTrackingId: string = '';  // Initialize orderTrackingId
-   paymentSuccess: boolean = false;  // Initialize paymentSuccess flag
-  
-  
-  
+
+  orderTrackingId: string = '';  // Initialize orderTrackingId
+  paymentSuccess: boolean = false;  // Initialize paymentSuccess flag
+
+
+
   // Customer and Address objects
-  customer: Customer = new Customer('','', '');
+  customer: Customer = new Customer('', '', '');
   address: Address = new Address('', '', '', '', '', '');
 
   constructor(private cartService: CartService,
-              private checkoutService: CheckoutService,
-              private router: Router) { }
+    private checkoutService: CheckoutService,
+    private router: Router,
+    private ngZone: NgZone) { }
 
   ngOnInit(): void {
     // Fetch cart items and totals
@@ -51,11 +54,11 @@ export class CheckoutComponent implements OnInit {
 
     // Map CartItem objects to OrderItem objects
     this.cartItems = cartItems.map(item => new OrderItem(
-    item.imageUrl,
-    item.unitPrice,
-    item.quantity,
-    item.name
-  ));
+      item.imageUrl,
+      item.unitPrice,
+      item.quantity,
+      item.name
+    ));
 
     this.totalPrice = this.cartService.getTotalPrice();
     this.totalQuantity = this.cartService.getTotalQuantity();
@@ -65,9 +68,9 @@ export class CheckoutComponent implements OnInit {
   onSubmit() {
     // Create order from cart details
     let order = new Order(this.totalQuantity, this.totalPrice);
-    
+
     // Get the order items from the cart
-    let orderItems: OrderItem[] = this.cartItems.map(item => new OrderItem(item.imageUrl, item.unitPrice, item.quantity,  item.prodname));
+    let orderItems: OrderItem[] = this.cartItems.map(item => new OrderItem(item.imageUrl, item.unitPrice, item.quantity, item.prodname));
 
     // Prepare purchase object
     let purchase = new Purchase();
@@ -76,81 +79,107 @@ export class CheckoutComponent implements OnInit {
     purchase.order = order;
     purchase.orderItems = orderItems;
 
+    // Prepare PaymentVerificationPayload object
+    let paymentVerificationPayload = new PaymentVerificationPayload('','','');
+    
+
     //Call the checkout service to place the order
     this.checkoutService.placeOrder(purchase).subscribe({
       next: response => {
-        console.log(response);
-        const razorpayOrderId = response.razorpayOrderId; 
-        const amount = this.totalPrice; 
+
+        const razorpayOrderId = response.razorpayOrderId;
+        const amount = this.totalPrice;
         this.orderTrackingId = response.orderTrackingNumber;
-       // alert(`Order placed successfully with order Tracking ID : ${this.orderTrackingId}` );
         this.initiateRazorpayPayment(razorpayOrderId, amount);
       },
       error: err => {
         console.error('Error placing order', err);
       }
     });
-    //alert(`Order placed successfully!`);
+    
   }
 
   // Method to initiate Razorpay payment
   initiateRazorpayPayment(razorpayOrderId: string, amount: number) {
     console.log('Entering initiateRazorpayPayment method');
     const options = {
-      key: 'rzp_test_tuikA9DbNmuQ6Y', // Enter the Key ID generated from the Razorpay Dashboard
+      key: 'rzp_test_ANOvYSLNOU4ump', // Enter the Key ID generated from the Razorpay Dashboard
       amount: amount * 100, // Amount is in currency subunits (i.e., paise for INR)
       currency: 'INR',
       name: 'Ashok-IT',
       description: 'Ecommerce-Order',
       order_id: razorpayOrderId, // Use the Razorpay order ID returned from the backend
-      handler: (response: any) => {
-        
-       // alert(`Payment successful. Payment ID: ${response.razorpay_payment_id}`);
-     
-      },
       prefill: {
         name: this.customer.name,
         email: this.customer.email,
         contact: this.customer.phno,
-      }
+      },
+      handler: (response: any) => {
+        if (response && response.razorpay_payment_id && response.razorpay_signature) {
+          console.log('Payment response in handler :', response);
+          // this.ngZone.run(() => {
+          //   this.paymentSuccess = true;
+          //   console.log('Payment Status inside handler:', this.paymentSuccess);
+          // });
+
+          // Verify payment with backend
+          const paymentPayload = {
+            razorpayOrderId: razorpayOrderId,
+            razorpayPaymentId: response.razorpay_payment_id,
+            razorpaySignature: response.razorpay_signature
+          };
+          this.verifyPayment(paymentPayload);
+
+        } else {
+          this.ngZone.run(() => {
+            this.paymentSuccess = false;
+            console.error('Payment failed or no payment ID received.');
+          });
+
+        }
+      },
+
     };
 
     const razorpay = new Razorpay(options);
-    razorpay.open();
-    console.log('Exiting initiateRazorpayPayment method');
-    this.paymentSuccess = true;
+      razorpay.open();
+      console.log('Exiting initiateRazorpayPayment method');
   }
-
-  continueShopping() {
-    // Reset state or navigate to another page, like cart or home
-    this.paymentSuccess = false;  // Reset the flag if you want to reuse the form
-    this.router.navigateByUrl('/shop');  // Navigate to the shop or cart page
+  verifyPayment(paymentPayload: PaymentVerificationPayload) {
+    console.log('Entering verifyPayment');
+    this.checkoutService.verifyPayment(paymentPayload).subscribe({
+      next: (response) => {
+        console.log('verifyPayment response  :', response);
+        this.ngZone.run(() => {
+          this.paymentSuccess = true;
+          console.log('Payment verified successfully in verifyPayment');
+        });
+      },
+      error: (err) => {
+        this.ngZone.run(() => {
+          this.paymentSuccess = false;
+          console.error('Payment verification failed:', err);
+        });
+      }
+    });
   }
-  //Method to verify Payment
-
-  // onPaymentSuccess(response: any) {
-  //   console.log('Entering onPaymentSuccess method');
-  //   // Prepare the payload for verification 
-  //   const paymentPayload = {
-  //     razorpay_order_id: response.razorpay_order_id,
-  //     razorpay_payment_id: response.razorpay_payment_id,
-  //     razorpay_signature: response.razorpay_signature
-  //   };
-  //   console.log('Printing Payload')
-  //   console.log(response.razorpay_order_id,response.razorpay_payment_id,response.razorpay_signature);
   
-  //   // Call the backend API for payment verification
-  //   this.checkoutService.verifyPayment(paymentPayload).subscribe({
-  //     next: backendResponse => {
-  //       alert('Payment successful and verified!');
-  //       // Navigate to success page or display order summary
-  //       //this.router.navigateByUrl("/order-success");
-  //     },
-  //     error: err => {
-  //       console.error('Payment verification failed', err);
-  //     }
-  //   });
+  continueShopping() {
+    this.paymentSuccess = false;
+    this.cartService.clearCart();
+    this.router.navigateByUrl('/shop');
+  
+    // Navigate after a small delay
+    // setTimeout(() => {
+    //   this.router.navigateByUrl('/shop');
+    // }, 200);
+  }
 
+  
+
+
+}
   //   console.log('Exiting onPaymentSuccess method');
   // }
-}
+
+

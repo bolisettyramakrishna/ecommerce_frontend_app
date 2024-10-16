@@ -1,7 +1,33 @@
 <div class="main-content page-m">
     <div class="section-content section-content-p30">
         <div class="container-fluid">
-            <p>orderdetails works!</p>
+            <div style="width: 900px">
+                <div *ngIf="orderdtls.length > 0; else noOrders">
+                    <table class="table table-bordered table-striped">
+                        <thead class="table-dark">
+                            <tr>
+                                <td>Order Tracking Number</td>
+                                <td>Total Price</td>
+                                <td>Total Quantity</td>
+                                <td>Date</td>
+                                <td>Status</td>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr *ngFor="let order of orderdtls">
+                                <td>{{ order.orderTrackingNum }}</td>
+                                <td>{{ order.totalPrice }}</td>
+                                <td>{{ order.totalQuantity }}</td>
+                                <td>{{ order.dateCreated }}</td>
+                                <td>{{ order.orderStatus }}</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+                <ng-template #noOrders>
+                    <p>No orders found.</p>
+                </ng-template>
+            </div>
         </div>
     </div>
 </div>

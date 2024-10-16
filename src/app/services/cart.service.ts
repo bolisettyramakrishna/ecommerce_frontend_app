@@ -66,7 +66,17 @@ export class CartService {
     const totalQuantity = this.getTotalQuantity();
     const totalPrice = this.getTotalPrice();
 
+    console.log('Updating totalQuantity:', totalQuantity);  // Debug log
+    console.log('Updating totalPrice:', totalPrice);        // Debug log
+
     this.totalQuantitySubject.next(totalQuantity);
     this.totalPriceSubject.next(totalPrice);
   }
+
+  clearCart() {
+    console.log('Clearing cart...');
+    this.cartItems = [];
+    this.updateCartTotals(); // Update totals after clearing the cart
+  }
+
 }
