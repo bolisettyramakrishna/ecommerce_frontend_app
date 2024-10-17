@@ -14,7 +14,9 @@ export class CartService {
   totalQuantity$ = this.totalQuantitySubject.asObservable();
   totalPrice$ = this.totalPriceSubject.asObservable();
 
-  constructor() {}
+  constructor() {
+    this.loadCartItems();
+  }
 
   //method to add product to cart
   addToCart(product: CartItem) {
@@ -25,7 +27,18 @@ export class CartService {
       this.cartItems.push({ ...product, quantity: 1 });
     }
 
-    this.updateCartTotals(); // Update totals after adding the item
+    this.updateCartTotals();
+    this.savedCartToStorage(); // Update totals after adding the item
+  }
+  private savedCartToStorage(){
+    localStorage.setItem('cartItems',JSON.stringify(this.cartItems));
+  }
+  private loadCartItems() {
+    const cartData = localStorage.getItem('cartItems');
+    if (cartData) {
+      this.cartItems = JSON.parse(cartData);
+      this.updateCartTotals(); // Update totals after loading cart
+    }
   }
 
   //method to get all items in the cart
