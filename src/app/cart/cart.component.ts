@@ -25,6 +25,7 @@ export class CartComponent implements OnInit {
   updateQuantity(id: number, quantity: number) {
     this.cartService.updateItemQuantity(id, quantity);
     this.loadCartDetails(); // Refresh cart items and total price after quantity update
+    
   }
 
   removeItem(item: any) {

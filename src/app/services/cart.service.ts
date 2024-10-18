@@ -7,14 +7,16 @@ import { BehaviorSubject } from 'rxjs';
 })
 export class CartService {
   private cartItems: CartItem[] = [];
-
+  private cartKey = 'userCart';
   private totalQuantitySubject = new BehaviorSubject<number>(0);
   private totalPriceSubject = new BehaviorSubject<number>(0);
 
   totalQuantity$ = this.totalQuantitySubject.asObservable();
   totalPrice$ = this.totalPriceSubject.asObservable();
 
-  constructor() {}
+  constructor() {
+    this.loadCart();  // Load cart on service initialization
+  }
 
   //method to add product to cart
   addToCart(product: CartItem) {
@@ -23,9 +25,14 @@ export class CartService {
       existingItem.quantity++;
     } else {
       this.cartItems.push({ ...product, quantity: 1 });
+      this.saveCart();  
     }
 
     this.updateCartTotals(); // Update totals after adding the item
+  }
+  saveCart() {
+    // Store cart items in localStorage
+    localStorage.setItem(this.cartKey, JSON.stringify(this.cartItems));
   }
 
   //method to get all items in the cart
@@ -38,13 +45,18 @@ export class CartService {
     const item = this.cartItems.find((cartItem) => cartItem.id === id);
     if (item) {
       item.quantity = quantity;
+      if (item.quantity === 0) {
+        this.removeFromCart(id); // If quantity is 0, remove the item
+      }
     }
+    this.saveCart(); // Save changes to localStorage
     this.updateCartTotals(); // Update totals after quantity change
   }
 
   // Remove item from cart
   removeFromCart(id: number) {
     this.cartItems = this.cartItems.filter((item) => item.id !== id);
+    this.saveCart(); // Save changes to localStorage
     this.updateCartTotals();
   }
 
@@ -73,9 +85,20 @@ export class CartService {
     this.totalPriceSubject.next(totalPrice);
   }
 
+  loadCart() {
+    // Load cart items from localStorage on app start
+    const savedCart = localStorage.getItem(this.cartKey);
+    if (savedCart) {
+      this.cartItems = JSON.parse(savedCart);
+      this.updateCartTotals();  // Recalculate totals based on loaded cart
+    }
+  }
+
   clearCart() {
+    // Clear cart items and remove from localStorage
     console.log('Clearing cart...');
     this.cartItems = [];
+    localStorage.removeItem(this.cartKey);
     this.updateCartTotals(); // Update totals after clearing the cart
   }
 

@@ -13,6 +13,6 @@ import { LoginService } from '../services/login.service';
   styleUrl: './login.component.css'
 })
 export class LoginComponent {
-  constructor(public loginService:LoginService){}
+  constructor(public LoginService:LoginService){}
 
 }

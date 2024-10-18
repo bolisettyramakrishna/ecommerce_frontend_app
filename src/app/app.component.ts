@@ -10,6 +10,8 @@ import { LoginComponent } from './login/login.component';
 import { AdmindashboardComponent } from './admindashboard/admindashboard.component';
 import { ResetpasswordComponent } from './resetpassword/resetpassword.component';
 import { RegisterComponent } from './register/register.component';
+import { LoginService } from './services/login.service';
+import { UserRoleService } from './services/user-role.service';
 
 @Component({
   selector: 'app-root',
@@ -30,53 +32,71 @@ import { RegisterComponent } from './register/register.component';
   templateUrl: './app.component.html',
   styleUrl: './app.component.css',
 })
-export class AppComponent implements OnInit, OnChanges {
+export class AppComponent implements OnInit {
   title = 'ecommerce_frontend';
   userRole: String = '';
   cartQuantity = 0;
   cartTotal = 0;
   
 
-  constructor(private cartService: CartService) {
-    this.updateCartDetails();
+  constructor(private cartService: CartService,private LoginService :LoginService, private userRoleService: UserRoleService,) {
+   // Load session and cart info in the constructor
+   this.LoginService.restoreSession();  // Restore session if exists
+   this.cartService.loadCart();  // Restore cart from localStorage
+   this.updateCartDetails();  // Initialize cart details
   }
 
   ngOnInit(): void {
     this.cartService.totalQuantity$.subscribe(
       (quantity) => {
-        console.log('Updated cart quantity:', quantity); // Debug log
+        console.log('Updated cart quantity:', quantity); 
         (this.cartQuantity = quantity)}
     );
 
     this.cartService.totalPrice$.subscribe(
       (totalPrice) => {
-        console.log('Updated cart total price:', totalPrice); // Debug log
+        console.log('Updated cart total price:', totalPrice); 
         this.cartTotal = totalPrice;
       }
     );
 
-    // this.userRole = sessionStorage.getItem('role') || '';
-    // console.log('App - component productCategory');
-    // console.log(this.userRole);
+    
+  //   this.LoginService.restoreSession(); 
+  //   this.cartService.loadCart(); 
 
-    this.userRole = sessionStorage.getItem('role') || 'normalUser'; // Default to normalUser
-    console.log('AppComponent - Role:', this.userRole);
+  //   this.userRole = sessionStorage.getItem('role') || 'normalUser'; 
+  //   this.userRole = this.LoginService.getUserRole() || 'normalUser';
+  //  console.log('AppComponent - UserRole after session restore:', this.userRole); // Debugging
+
+  //  // Subscribe to userRole$ to get the current user role
+  //  this.userRoleService.userRole$.subscribe(role => {
+  //   this.userRole = role;
+  //   console.log('User role updated in AppComponent:', this.userRole);
+  //   this.userRole = this.userRoleService.getUserRole();
+  // });
+
+  // Get initial user role from session storage
+  this.userRole = this.userRoleService.getUserRole();
+  console.log('AppComponent - UserRole after session restore:', this.userRole);
+
+  // Subscribe to userRole$ to get the current user role
+  this.userRoleService.userRole$.subscribe(role => {
+    this.userRole = role;
+    console.log('User role updated in AppComponent:', this.userRole);
+  });
+  
   }
 
-  ngOnChanges(): void {
-    this.userRole = sessionStorage.getItem('role') || '';
-    console.log('App - Onchange');
-    console.log(this.userRole);
-  }
+  
 
   updateCartDetails() {
+    // Sync cart totals with service
     this.cartQuantity = this.cartService.getTotalQuantity();
     this.cartTotal = this.cartService.getTotalPrice();
   }
 
-  updateUserRole() {
-    this.userRole = sessionStorage.getItem('role') || 'normalUser';
-  }
+  
 
+  
   
 }

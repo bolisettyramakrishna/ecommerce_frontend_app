@@ -47,11 +47,12 @@ export class LogindetailsComponent {
     let login = new Login();
     login = this.loginFormGroup.get('login')?.value;
 
-    console.log('Value is' + login);
+    console.log('Form data:', login);
 
     this.isAdmin = this.loginService.checkIfAdmin(login);
     if (this.isAdmin) {
       this.userRoleService.setUserRole('adminUser'); 
+      this.loginService.login({ token: 'dummy-admin-token', user: { role: 'adminUser' } });
       this.router.navigateByUrl('/admindashboard');
       //sessionStorage.setItem('role', 'adminUser');
     } else {
@@ -61,7 +62,10 @@ export class LogindetailsComponent {
       this.loginService.checkIfValid(login).subscribe((data) => {
         const login = data;     
         if (login.email != null) {
+          console.log('Login successful, storing token and user');
+          this.loginService.login({ token: 'dummy-user-token', user: { role: 'normalUser', email: data.email } });
           this.loginService.session = { username: 'user' };
+          this.userRoleService.setUserRole('normalUser');
           this.router.navigateByUrl(`/order-details/${login.email}`);
         } else {
           this.errormsg = 'Invalid credentials';
