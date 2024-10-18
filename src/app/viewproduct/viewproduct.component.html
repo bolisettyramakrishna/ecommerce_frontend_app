@@ -1,6 +1,5 @@
-<div class="modal" *ngIf="isOpen">
-  <div class="modal-content">
-    <span class="close" (click)="closeModal()">&times;</span>
+<div class="main-content page-m">
+  <div>
     <table border="2" class="table table-striped">
       <thead>
         <tr>
@@ -12,7 +11,7 @@
         </tr>
       </thead>
       <tbody>
-        <tr *ngFor="let product of productData">
+        <tr *ngFor="let product of products">
           <td>{{ product.id }}</td>
           <td>{{ product.productName }}</td>
           <td>{{ product.price }}</td>
@@ -27,6 +26,13 @@
         </tr>
       </tbody>
     </table>
-    <button (click)="closeModal()">Close</button>
+    <button
+      type="button"
+      (click)="backDashboard()"
+      style="width: 150px; margin-top: 20px"
+      class="btn btn-primary"
+    >
+      Back
+    </button>
   </div>
 </div>

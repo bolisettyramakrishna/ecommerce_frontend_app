@@ -6,29 +6,27 @@ import { FormsModule } from '@angular/forms';
 import { CommonModule } from '@angular/common';
 import { ViewproductComponent } from '../viewproduct/viewproduct.component';
 import { Productresponse } from '../common/productresponse';
+import { Router, RouterModule } from '@angular/router';
 
 @Component({
   selector: 'app-admin-filter-search',
   standalone: true,
-  imports: [FormsModule, CommonModule, ViewproductComponent],
+  imports: [FormsModule, CommonModule, ViewproductComponent, RouterModule],
   templateUrl: './admin-filter-search.component.html',
   styleUrl: './admin-filter-search.component.css',
 })
-export class AdminFilterSearchComponent implements OnInit, OnChanges {
+export class AdminFilterSearchComponent implements OnInit {
   orderHistory: Orderhistory = new Orderhistory();
   orders: OrderResponse[] = [];
   sendOrderId: number = 0;
-  products: Productresponse[] = [];
-  isModalOpen = false;
 
-  constructor(public dashBoardService: DashboardService) {}
+  constructor(
+    public dashBoardService: DashboardService,
+    private router: Router
+  ) {}
 
   ngOnInit(): void {
     this.filterOrders();
-  }
-
-  ngOnChanges(changes: SimpleChanges): void {
-    this.isModalOpen = true;
   }
 
   filterOrders() {
@@ -40,14 +38,7 @@ export class AdminFilterSearchComponent implements OnInit, OnChanges {
     console.log(this.orders);
   }
 
-  openModal(orderId: number) {
-    this.isModalOpen = true;
-    this.sendOrderId = orderId;
-    this.dashBoardService
-      .fetchProductData(orderId)
-      .subscribe((data: Productresponse[]) => {
-        this.products = data;
-      });
-    console.log(this.products);
+  getProduct(orderId: number) {
+    this.router.navigateByUrl(`/viewProduct/${orderId}`);
   }
 }
